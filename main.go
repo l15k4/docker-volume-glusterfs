@@ -18,6 +18,7 @@ var (
 	restAddress = flag.String("rest", "", "URL to glusterfsrest api")
 	gfsBase     = flag.String("gfs-base", "/mnt/gfs", "Base directory where volumes are created in the cluster")
 	root        = flag.String("root", defaultDir, "GlusterFS volumes root directory")
+	group       = flag.String("group", "root", "User group")
 )
 
 func main() {
@@ -36,5 +37,5 @@ func main() {
 
 	d := newGlusterfsDriver(*root, *restAddress, *gfsBase, servers)
 	h := dkvolume.NewHandler(d)
-	fmt.Println(h.ServeUnix("root", "glusterfs"))
+	fmt.Println(h.ServeUnix(*group, "glusterfs"))
 }
